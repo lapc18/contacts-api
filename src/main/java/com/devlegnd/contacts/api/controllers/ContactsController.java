@@ -18,49 +18,100 @@ public class ContactsController {
 
 
     @GetMapping(value = "/")
-    public List<Contact> fetchAll() {
-        return this.service.findAll();
+    public ResponseEntity<List<Contact>> fetchAll() {
+        List<Contact> list = this.service.findAll();
+        if(list != null)
+            return ResponseEntity.ok(list);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @GetMapping(value = "/{phoneNumber}")
-    public Contact getByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
-        return this.service.findByPhoneNumber(phoneNumber);
+    public ResponseEntity<Contact> getByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
+
+        if(phoneNumber.isEmpty())
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+
+        Contact contact = this.service.findByPhoneNumber(phoneNumber);
+        if(contact != null)
+            return ResponseEntity.ok(contact);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @GetMapping(value = "/{name}")
-    public List<Contact> getByName(@PathVariable("name") String name) {
-        return this.service.findByName(name);
+    public ResponseEntity<List<Contact>> getByName(@PathVariable("name") String name) {
+
+        if(name.isEmpty())
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+
+        List<Contact> list = this.service.findByName(name);
+        if(list != null)
+            return ResponseEntity.ok(list);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @GetMapping(value = "/{lastName}")
-    public List<Contact> getByLastName(@PathVariable("lastName") String lastName) {
-        return this.service.findByLastName(lastName);
+    public ResponseEntity<List<Contact>> getByLastName(@PathVariable("lastName") String lastName) {
+
+        if(lastName.isEmpty())
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        List<Contact> list = this.service.findByLastName(lastName);
+        if(list != null)
+            return ResponseEntity.ok(list);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 
     @GetMapping(value = "/{email}")
-    public Contact getByEmail(@PathVariable("email") String email) {
-        return this.service.findByEmail(email);
+    public ResponseEntity<Contact> getByEmail(@PathVariable("email") String email) {
+        if(email.isEmpty())
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        Contact contact = this.service.findByEmail(email);
+        if(contact != null)
+            return ResponseEntity.ok(contact);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @GetMapping(value = "/{website}")
-    public Contact getByWebsite(@PathVariable("website") String website) {
-        return this.service.findByWebsite(website);
+    public ResponseEntity<Contact> getByWebsite(@PathVariable("website") String website) {
+        if(website.isEmpty())
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        Contact contact = this.service.findByWebsite(website);
+        if(contact != null)
+            return ResponseEntity.ok(contact);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @PostMapping(value = "/")
-    public ResponseEntity<?> addOrUpdateContact(@RequestBody Contact contact) {
-        boolean b = this.service.addContact(contact) == null;
-        if(b) {
-            return new ResponseEntity(HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<Contact> addOrUpdateContact(@RequestBody Contact contact) {
+        if(contact != null){
+            Contact result = this.service.addContact(contact);
+            if (result != null)
+                return ResponseEntity.ok(result);
+            else
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+        else
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public boolean deleteContact(@PathVariable("id") long id) {
-        return this.service.deleteContact(id);
+    public ResponseEntity<?> deleteContact(@PathVariable("id") long id) {
+        boolean b = this.service.deleteContact(id);
+        if(b)
+            return ResponseEntity.ok().build();
+        else
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 }
