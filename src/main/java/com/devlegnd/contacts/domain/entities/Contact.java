@@ -1,5 +1,6 @@
 package com.devlegnd.contacts.domain.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,19 +9,38 @@ import javax.persistence.Id;
 @Entity
 public class Contact {
 
-
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(name = "profile")
     private String profile;
+
+    @Column(name = "firstName")
     private String firstName;
+
+    @Column(name = "lastName")
     private String lastName;
+
+    @Column(name = "nickName")
     private String nickName;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "phoneNumber")
     private String phoneNumber;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "website")
     private String website;
+
+    @Column(name = "relationship")
     private String relationship;
+
+    @Column(name = "notes")
     private String notes;
 
 

@@ -1,4 +1,4 @@
-package com.devlegnd.contacts.api.controllers;
+package com.devlegnd.contacts.controllers;
 
 import com.devlegnd.contacts.domain.entities.Contact;
 import com.devlegnd.contacts.services.ContactService;
@@ -15,7 +15,6 @@ public class ContactsController {
 
     @Autowired
     private ContactService service;
-
 
     @GetMapping(value = "/")
     public ResponseEntity<List<Contact>> fetchAll() {
