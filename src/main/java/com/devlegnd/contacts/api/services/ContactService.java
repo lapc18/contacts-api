@@ -1,8 +1,8 @@
-package com.devlegnd.contacts.services;
+package com.devlegnd.contacts.api.services;
 
-import com.devlegnd.contacts.domain.entities.Contact;
-import com.devlegnd.contacts.domain.interfaces.IContactService;
-import com.devlegnd.contacts.domain.interfaces.IContactsRepository;
+import com.devlegnd.contacts.api.domain.entities.Contact;
+import com.devlegnd.contacts.api.domain.interfaces.IContactService;
+import com.devlegnd.contacts.api.repositories.IContactsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,7 @@ public class ContactService implements IContactService {
         return this.repository.findByPhoneNumber(phoneNumber);
     }
 
+    /*
     @Override
     public List<Contact> findByName(String name) {
         return this.repository.findAllByName(name);
@@ -33,7 +34,7 @@ public class ContactService implements IContactService {
     public List<Contact> findByLastName(String lastName) {
         return this.repository.findAllByLastName(lastName);
     }
-
+*/
     @Override
     public Contact findByEmail(String email) {
         return this.repository.findByEmail(email);

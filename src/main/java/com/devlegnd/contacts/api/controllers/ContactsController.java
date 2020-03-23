@@ -1,7 +1,7 @@
-package com.devlegnd.contacts.controllers;
+package com.devlegnd.contacts.api.controllers;
 
-import com.devlegnd.contacts.domain.entities.Contact;
-import com.devlegnd.contacts.services.ContactService;
+import com.devlegnd.contacts.api.domain.entities.Contact;
+import com.devlegnd.contacts.api.services.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,12 @@ public class ContactsController {
     @Autowired
     private ContactService service;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/test")
+    public ResponseEntity<?> test() {
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "")
     public ResponseEntity<List<Contact>> fetchAll() {
         List<Contact> list = this.service.findAll();
         if(list != null)
@@ -39,6 +44,7 @@ public class ContactsController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    /*
     @GetMapping(value = "/{name}")
     public ResponseEntity<List<Contact>> getByName(@PathVariable("name") String name) {
 
@@ -65,7 +71,7 @@ public class ContactsController {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
-
+ */
 
     @GetMapping(value = "/{email}")
     public ResponseEntity<Contact> getByEmail(@PathVariable("email") String email) {

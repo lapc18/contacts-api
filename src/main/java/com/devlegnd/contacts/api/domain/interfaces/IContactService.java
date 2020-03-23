@@ -1,7 +1,6 @@
-package com.devlegnd.contacts.domain.interfaces;
+package com.devlegnd.contacts.api.domain.interfaces;
 
-import com.devlegnd.contacts.domain.entities.Contact;
-import org.springframework.stereotype.Service;
+import com.devlegnd.contacts.api.domain.entities.Contact;
 
 import java.util.List;
 
@@ -9,8 +8,8 @@ public interface IContactService {
 
     List<Contact> findAll();
     Contact findByPhoneNumber(String phoneNumber);
-    List<Contact> findByName(String name);
-    List<Contact> findByLastName(String lastName);
+    //List<Contact> findByName(String name);
+    //List<Contact> findByLastName(String lastName);
     Contact findByEmail(String email);
     Contact findByWebsite(String website);
     Contact addContact(Contact contact);
