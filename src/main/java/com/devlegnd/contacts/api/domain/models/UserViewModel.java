@@ -1,48 +1,19 @@
-package com.devlegnd.contacts.api.domain.entities;
+package com.devlegnd.contacts.api.domain.models;
 
-import javax.persistence.*;
+public class UserViewModel {
 
-@Entity
-@Table(name = "Users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "lastName")
     private String lastName;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "profile")
     private String profile;
+    private String tkn;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "login_id")
-    private Login login;
-
-    public User() {
-    }
-
-    public User(String name, String lastName, String email, String profile, Login login) {
+    public UserViewModel(String name, String lastName, String email, String profile, String tkn) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.profile = profile;
-        this.login = login;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.tkn = tkn;
     }
 
     public String getName() {
@@ -75,5 +46,13 @@ public class User {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public String getTkn() {
+        return tkn;
+    }
+
+    public void setTkn(String tkn) {
+        this.tkn = tkn;
     }
 }

@@ -19,4 +19,32 @@ public class Login {
     @OneToOne(mappedBy = "Login", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 
+    public Login(String email, String pwd) {
+        this.email = email;
+        this.pwd = pwd;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
