@@ -16,7 +16,7 @@ public class Login {
     @Column(name = "password")
     private String pwd;
 
-    @OneToOne(mappedBy = "Login", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "login", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 
     public Login(String email, String pwd) {
