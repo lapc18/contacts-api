@@ -2,7 +2,6 @@ package com.devlegnd.contacts.api.domain.entities;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "Contacts")
 public class Contact {
@@ -41,6 +40,9 @@ public class Contact {
     @Column(name = "notes")
     private String notes;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Contact() {
     }

@@ -1,14 +1,11 @@
 package com.devlegnd.contacts.api.services;
 
-import com.devlegnd.contacts.api.domain.entities.Login;
-import com.devlegnd.contacts.api.domain.entities.User;
 import com.devlegnd.contacts.api.domain.interfaces.ILoginService;
-import com.devlegnd.contacts.api.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         if(!loginService.existsUserByEmail(s))
             throw new UsernameNotFoundException("User not found with username: " + s);
 
-        final Login user = loginService.getUser(s);
+        final com.devlegnd.contacts.api.domain.entities.User user = loginService.getUser(s);
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPwd(), new ArrayList<>());
     }

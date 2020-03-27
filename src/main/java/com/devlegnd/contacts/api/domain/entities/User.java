@@ -1,9 +1,12 @@
 package com.devlegnd.contacts.api.domain.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -16,25 +19,27 @@ public class User {
     @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "profile")
     private String profile;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "login_id")
-    private Login login;
+    @Column(name = "email", unique = true)
+    private String email;
+
+    @Column(name = "password")
+    private String pwd;
+
+    @OneToMany(mappedBy = "user")
+    private List<Contact> contacts; // = new ArrayList<>();
 
     public User() {
     }
 
-    public User(String name, String lastName, String email, String profile, Login login) {
+    public User(String name, String lastName, String profile, String email, String pwd) {
         this.name = name;
         this.lastName = lastName;
-        this.email = email;
         this.profile = profile;
-        this.login = login;
+        this.email = email;
+        this.pwd = pwd;
     }
 
     public long getId() {
@@ -61,6 +66,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -69,11 +82,19 @@ public class User {
         this.email = email;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 }

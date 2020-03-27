@@ -23,4 +23,9 @@ public class UserService implements IUserService {
 
         return new UserViewModel(user.getName(), user.getLastName(), user.getEmail(), user.getProfile(), "");
     }
+
+    @Override
+    public User save(User user) {
+        return this.repository.save(user);
+    }
 }
