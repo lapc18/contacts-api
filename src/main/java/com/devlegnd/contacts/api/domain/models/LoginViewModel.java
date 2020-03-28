@@ -4,7 +4,6 @@ public class LoginViewModel {
 
     private String email;
     private String pwd;
-    private String tkn;
 
     public LoginViewModel(String email, String pwd) {
         this.email = email;

@@ -15,12 +15,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 
 @RestController
 @RequestMapping(value = "/api/auth")
@@ -44,6 +41,7 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<UserViewModel> login(@RequestBody LoginViewModel model) throws Exception{
+        final String pwd = this.loginService.getUser(model.getEmail()).getPwd();
         authenticate(model.getEmail(), model.getPwd());
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(model.getEmail());
         final String tkn = jwtUtil.generateToken(userDetails);
@@ -69,12 +67,11 @@ public class AuthController {
 
     private void authenticate(String email, String pwd) throws Exception{
         try {
-            final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, pwd));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, pwd));
         } catch (DisabledException e) {
-            throw new Exception("User disabled...");
+            throw new Exception("User disabled...", e);
         } catch (BadCredentialsException e) {
-            throw new Exception("Invalid credentials provided...");
+            throw new Exception("Invalid credentials provided...", e);
         }
     }
 
