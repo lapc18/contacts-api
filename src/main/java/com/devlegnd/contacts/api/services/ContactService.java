@@ -1,12 +1,15 @@
 package com.devlegnd.contacts.api.services;
 
 import com.devlegnd.contacts.api.domain.entities.Contact;
+import com.devlegnd.contacts.api.domain.entities.User;
 import com.devlegnd.contacts.api.domain.interfaces.IContactService;
+import com.devlegnd.contacts.api.domain.interfaces.IUserService;
 import com.devlegnd.contacts.api.repositories.IContactsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContactService implements IContactService {
@@ -15,63 +18,18 @@ public class ContactService implements IContactService {
     private IContactsRepository repository;
 
     @Override
-    public List<Contact> findAll() {
-        return repository.findAll();
+    public List<Contact> findAll(String email) {
+        return this.repository.findAllByEmail(email);
     }
 
     @Override
-    public Contact findByPhoneNumber(String phoneNumber) {
-        return this.repository.findByPhoneNumber(phoneNumber);
-    }
-
-    /*
-    @Override
-    public List<Contact> findByName(String name) {
-        return this.repository.findAllByName(name);
+    public Contact addOrUpdateContact(String email, Contact contact) {
+        return this.repository.save(contact);
     }
 
     @Override
-    public List<Contact> findByLastName(String lastName) {
-        return this.repository.findAllByLastName(lastName);
-    }
-*/
-    @Override
-    public Contact findByEmail(String email) {
-        return this.repository.findByEmail(email);
-    }
-
-    @Override
-    public Contact findByWebsite(String website) {
-        return this.repository.findByWebsite(website);
-    }
-
-    @Override
-    public Contact addContact(Contact contact) {
-        try {
-            this.repository.save(contact);
-        } catch (Exception e) {
-            return null;
-        }
-        return contact;
-    }
-
-    @Override
-    public Contact editContact(Contact contact) {
-        try {
-            this.repository.save(contact);
-        } catch (Exception e) {
-            return null;
-        }
-        return contact;
-    }
-
-    @Override
-    public boolean deleteContact(long id) {
-        try {
-            this.repository.deleteById(id);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+    public void deleteContact(long id) {
+        final Contact c =  this.repository.findById(id);
+        this.repository.delete(c);
     }
 }
