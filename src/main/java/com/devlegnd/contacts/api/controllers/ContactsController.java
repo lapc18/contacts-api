@@ -1,6 +1,8 @@
 package com.devlegnd.contacts.api.controllers;
 
 import com.devlegnd.contacts.api.domain.entities.Contact;
+import com.devlegnd.contacts.api.domain.entities.User;
+import com.devlegnd.contacts.api.domain.models.ContactViewModel;
 import com.devlegnd.contacts.api.services.ContactService;
 import com.devlegnd.contacts.api.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +37,25 @@ public class ContactsController {
     }
 
     @PostMapping(value = "/")
-    public ResponseEntity<?> addOrUpdateContact(@PathVariable("email") String email, @RequestBody Contact contact) {
+    public ResponseEntity<?> addContact(@PathVariable("email") String email, @RequestBody ContactViewModel contact) {
         if(contact == null || !this.loginService.existsUserByEmail(email))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        final Contact result = this.service.addOrUpdateContact(email, contact);
-        return ResponseEntity.ok(result);
+        final Contact entity = new Contact(contact.getProfile(), contact.getFirstName(), contact.getLastName(), contact.getNickName(), contact.getEmail(), contact.getPhoneNumber(), contact.getAddress(), contact.getWebsite(), contact.getRelationship(), contact.getNotes());
+        final User user = this.loginService.getUser(email);
+        entity.setUser(user);
+        return ResponseEntity.ok(this.service.addOrUpdateContact(entity));
+    }
+
+    @PutMapping(value = "/")
+    public ResponseEntity<?> updateContact(@PathVariable("email") String email, @RequestBody ContactViewModel contact) {
+        if(contact == null || !this.loginService.existsUserByEmail(email))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        final Contact entity = new Contact(contact.getProfile(), contact.getFirstName(), contact.getLastName(), contact.getNickName(), contact.getEmail(), contact.getPhoneNumber(), contact.getAddress(), contact.getWebsite(), contact.getRelationship(), contact.getNotes());
+        final User user = this.loginService.getUser(email);
+        entity.setUser(user);
+        return ResponseEntity.ok(this.service.addOrUpdateContact(entity));
     }
 
     @DeleteMapping(value = "/delete/{id}")

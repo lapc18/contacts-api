@@ -7,6 +7,6 @@ import java.util.List;
 public interface IContactService {
 
     List<Contact> findAll(String email);
-    Contact addOrUpdateContact(String email, Contact contact);
+    Contact addOrUpdateContact(Contact contact);
     void deleteContact(long id);
 }

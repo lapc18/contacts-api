@@ -23,7 +23,7 @@ public class ContactService implements IContactService {
     }
 
     @Override
-    public Contact addOrUpdateContact(String email, Contact contact) {
+    public Contact addOrUpdateContact(Contact contact) {
         return this.repository.save(contact);
     }
 

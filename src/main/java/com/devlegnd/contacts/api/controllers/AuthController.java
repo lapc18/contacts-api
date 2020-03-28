@@ -41,7 +41,6 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<UserViewModel> login(@RequestBody LoginViewModel model) throws Exception{
-        final String pwd = this.loginService.getUser(model.getEmail()).getPwd();
         authenticate(model.getEmail(), model.getPwd());
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(model.getEmail());
         final String tkn = jwtUtil.generateToken(userDetails);
