@@ -59,7 +59,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 registry.addMapping("/api/**")
                         .allowedOrigins("*")
                         .allowedMethods("PUT", "DELETE", "POST", "GET", "OPTIONS")
-                        .allowedHeaders("*");
+                        .allowedHeaders("Access-Control-Request-Method", "Access-Control-Request-Headers");
             }
         };
     }

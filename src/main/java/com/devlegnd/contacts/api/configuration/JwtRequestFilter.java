@@ -31,11 +31,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
-        httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
-        httpServletResponse.addHeader("Access-Control-Allow-Header","*");
-        httpServletResponse.addHeader("Content-Type","application/json");
-        httpServletResponse.addHeader("Accept","*");
-        httpServletResponse.addHeader("Options","*");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Header","*");
+        httpServletResponse.setHeader("Access-Control-Allow-Methods","*");
+        httpServletResponse.setHeader("Content-Type","application/json");
+
 
         final String requestTokenHeader = httpServletRequest.getHeader("Authorization");
         String username = null;
