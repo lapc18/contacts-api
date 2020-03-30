@@ -57,7 +57,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedMethods("PUT", "DELETE")
+                        .allowedMethods("PUT", "DELETE", "POST", "GET")
                         .allowedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Max-Age", "Access-Control-Allow-Headers")
                         .allowCredentials(false)
                         .maxAge(3600);
