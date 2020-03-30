@@ -35,6 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         httpServletResponse.addHeader("Access-Control-Allow-Header","*");
         httpServletResponse.addHeader("Content-Type","application/json");
         httpServletResponse.addHeader("Accept","*");
+        httpServletResponse.addHeader("Options","*");
 
         final String requestTokenHeader = httpServletRequest.getHeader("Authorization");
         String username = null;
