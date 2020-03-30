@@ -57,10 +57,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
+                        .allowedOrigins("*")
                         .allowedMethods("PUT", "DELETE", "POST", "GET")
-                        .allowedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Max-Age", "Access-Control-Allow-Headers")
-                        .allowCredentials(false)
-                        .maxAge(3600);
+                        .allowedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Allow-Headers");
             }
         };
     }
@@ -73,7 +72,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
-                .disable().cors().disable()
+                .disable()
+                .cors().and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/auth/register").permitAll()
