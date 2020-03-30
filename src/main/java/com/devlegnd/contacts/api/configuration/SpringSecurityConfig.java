@@ -58,8 +58,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         .allowedOrigins("*")
-                        .allowedMethods("PUT", "DELETE", "POST", "GET")
-                        .allowedHeaders("x-access_token","Content-Type", "Access-Control-Allow-Headers", "Authorization", "X-Requested-With");
+                        .allowedMethods("PUT", "DELETE", "POST", "GET", "OPTIONS")
+                        .allowedHeaders("OPTIONS","Content-Type", "Access-Control-Allow-Headers", "Authorization", "Access-Control-Allow-Origin");
             }
         };
     }
