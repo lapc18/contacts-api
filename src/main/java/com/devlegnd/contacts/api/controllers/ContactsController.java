@@ -28,7 +28,7 @@ public class ContactsController {
     }
 
     @GetMapping(value = "/{email}")
-    public ResponseEntity<?> fetchAll(@PathVariable("email") String email) {
+    public ResponseEntity<List<Contact>> fetchAll(@PathVariable("email") String email) {
         if(!this.loginService.existsUserByEmail(email) || email.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         //final User user = loginService.getUser(email);
@@ -60,7 +60,7 @@ public class ContactsController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping(value = "/delete/{email}/{id}")
+    @DeleteMapping(value = "/{email}/{id}")
     public ResponseEntity<?> deleteContact(@PathVariable("email") String email, @PathVariable("id") long id) {
         this.service.deleteContact(id);
         return ResponseEntity.ok(HttpStatus.OK);
