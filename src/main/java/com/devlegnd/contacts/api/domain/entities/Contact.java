@@ -60,11 +60,11 @@ public class Contact {
         this.notes = notes;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -146,10 +146,6 @@ public class Contact {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getUser() {
