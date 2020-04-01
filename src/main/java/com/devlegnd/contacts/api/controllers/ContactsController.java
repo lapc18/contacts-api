@@ -44,7 +44,7 @@ public class ContactsController {
         final Contact entity = new Contact(contact.getProfile(), contact.getFirstName(), contact.getLastName(), contact.getNickName(), contact.getEmail(), contact.getPhoneNumber(), contact.getAddress(), contact.getWebsite(), contact.getRelationship(), contact.getNotes());
         final User user = this.loginService.getUser(email);
         entity.setUser(user);
-        return ResponseEntity.ok(this.service.addOrUpdateContact(entity));
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping(value = "/{email}")
@@ -55,7 +55,7 @@ public class ContactsController {
         final Contact entity = new Contact(contact.getProfile(), contact.getFirstName(), contact.getLastName(), contact.getNickName(), contact.getEmail(), contact.getPhoneNumber(), contact.getAddress(), contact.getWebsite(), contact.getRelationship(), contact.getNotes());
         final User user = this.loginService.getUser(email);
         entity.setUser(user);
-        return ResponseEntity.ok(this.service.addOrUpdateContact(entity));
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping(value = "/delete/{email}/{id}")
