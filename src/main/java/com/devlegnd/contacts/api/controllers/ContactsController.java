@@ -31,10 +31,10 @@ public class ContactsController {
     public ResponseEntity<?> fetchAll(@PathVariable("email") String email) {
         if(!this.loginService.existsUserByEmail(email) || email.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        final User user = loginService.getUser(email);
+        //final User user = loginService.getUser(email);
         final List<Contact> list = this.service.findAll(email);
-        user.setContacts(list);
-        return ResponseEntity.ok(user);
+       // user.setContacts(list);
+        return ResponseEntity.ok(list);
     }
 
     @PostMapping(value = "/{email}")
