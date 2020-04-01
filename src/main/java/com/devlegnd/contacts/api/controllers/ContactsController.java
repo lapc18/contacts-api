@@ -31,8 +31,10 @@ public class ContactsController {
     public ResponseEntity<?> fetchAll(@PathVariable("email") String email) {
         if(!this.loginService.existsUserByEmail(email) || email.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        final User user = loginService.getUser(email);
         final List<Contact> list = this.service.findAll(email);
-        return ResponseEntity.ok(list);
+        user.setContacts(list);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping(value = "/{email}")
