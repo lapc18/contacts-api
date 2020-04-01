@@ -41,10 +41,14 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<UserViewModel> login(@RequestBody LoginViewModel model) throws Exception{
+        final UserViewModel userViewModel = userService.getUserByEmail(model.getEmail());
+        if(userViewModel == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
         authenticate(model.getEmail(), model.getPwd());
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(model.getEmail());
         final String tkn = jwtUtil.generateToken(userDetails);
-        final UserViewModel userViewModel = userService.getUserByEmail(model.getEmail());
+
         userViewModel.setTkn(tkn);
         return ResponseEntity.ok(userViewModel);
     }

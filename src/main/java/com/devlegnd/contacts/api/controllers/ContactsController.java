@@ -36,7 +36,7 @@ public class ContactsController {
         return ResponseEntity.ok(list);
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/{email}")
     public ResponseEntity<?> addContact(@PathVariable("email") String email, @RequestBody ContactViewModel contact) {
         if(contact == null || !this.loginService.existsUserByEmail(email))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -47,7 +47,7 @@ public class ContactsController {
         return ResponseEntity.ok(this.service.addOrUpdateContact(entity));
     }
 
-    @PutMapping(value = "/")
+    @PutMapping(value = "/{email}")
     public ResponseEntity<?> updateContact(@PathVariable("email") String email, @RequestBody ContactViewModel contact) {
         if(contact == null || !this.loginService.existsUserByEmail(email))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -58,8 +58,8 @@ public class ContactsController {
         return ResponseEntity.ok(this.service.addOrUpdateContact(entity));
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<?> deleteContact(@PathVariable("id") long id) {
+    @DeleteMapping(value = "/delete/{email}/{id}")
+    public ResponseEntity<?> deleteContact(@PathVariable("email") String email, @PathVariable("id") long id) {
         this.service.deleteContact(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
