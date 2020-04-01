@@ -12,7 +12,7 @@ import java.util.List;
 public interface IContactsRepository extends JpaRepository<Contact, Long> {
 
 
-    @Query(value = "select * from contacts c left join users u on c.user_id = u.id where u.email = :email", nativeQuery = true)
+    //@Query(value = "select * from contacts c left join users u on c.user_id = u.id where u.email = :email", nativeQuery = true)
     List<Contact> findAllByEmail(@Param("email") String email);
 
     Contact findById(long id);
