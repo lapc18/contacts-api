@@ -1,6 +1,7 @@
 package com.devlegnd.contacts.api.domain.interfaces;
 
 import com.devlegnd.contacts.api.domain.entities.Contact;
+import com.devlegnd.contacts.api.domain.entities.User;
 
 import java.util.List;
 

@@ -31,9 +31,10 @@ public class ContactsController {
     public ResponseEntity<?> fetchAll(@PathVariable("email") String email) {
         if(!this.loginService.existsUserByEmail(email) || email.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-
+        final User user = loginService.getUser(email);
         final List<Contact> list = this.service.findAll(email);
-        return ResponseEntity.ok(list);
+        user.setContacts(list);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping(value = "/{email}")
@@ -44,6 +45,7 @@ public class ContactsController {
         final Contact entity = new Contact(contact.getProfile(), contact.getFirstName(), contact.getLastName(), contact.getNickName(), contact.getEmail(), contact.getPhoneNumber(), contact.getAddress(), contact.getWebsite(), contact.getRelationship(), contact.getNotes());
         final User user = this.loginService.getUser(email);
         entity.setUser(user);
+        this.service.addOrUpdateContact(entity);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

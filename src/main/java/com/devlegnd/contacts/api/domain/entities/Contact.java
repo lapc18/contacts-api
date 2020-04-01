@@ -1,10 +1,15 @@
 package com.devlegnd.contacts.api.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Contacts")
-public class Contact {
+public class Contact implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,14 +45,30 @@ public class Contact {
     @Column(name = "notes")
     private String notes;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private User user;
 
     public Contact() {
     }
 
     public Contact(String profile, String firstName, String lastName, String nickName, String email, String phoneNumber, String address, String website, String relationship, String notes) {
+        this.profile = profile;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.website = website;
+        this.relationship = relationship;
+        this.notes = notes;
+    }
+
+    public Contact(Long id, String profile, String firstName, String lastName, String nickName, String email, String phoneNumber, String address, String website, String relationship, String notes) {
+        this.id = id;
         this.profile = profile;
         this.firstName = firstName;
         this.lastName = lastName;
