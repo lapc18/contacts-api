@@ -24,7 +24,7 @@ public class UserService implements IUserService {
         final User user = repository.findByEmail(email);
 
         if (user == null)
-            throw new Exception("No user found...");
+            return null;
 
         return new UserViewModel(user.getName(), user.getLastName(), user.getEmail(), user.getProfile(), "");
     }

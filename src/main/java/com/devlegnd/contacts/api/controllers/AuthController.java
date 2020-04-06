@@ -55,7 +55,7 @@ public class AuthController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<?> register(@RequestBody RegisterUserViewModel model) throws Exception{
-        if(this.loginService.existsUserByEmail(model.getEmail()))
+        if(this.loginService.getUser(model.getEmail()) != null)
             return ResponseEntity.ok(HttpStatus.BAD_REQUEST);
 
         final User user = new User(model.getName(), model.getLastName(),  model.getProfile(), model.getEmail(), model.getPwd());
