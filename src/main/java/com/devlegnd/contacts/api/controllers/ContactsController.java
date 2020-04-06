@@ -50,13 +50,14 @@ public class ContactsController {
     }
 
     @PutMapping(value = "/{email}")
-    public ResponseEntity<?> updateContact(@PathVariable("email") String email, @RequestBody ContactViewModel contact) {
+    public ResponseEntity<?> updateContact(@PathVariable("email") String email, @RequestBody Contact contact) {
         if(contact == null || !this.loginService.existsUserByEmail(email))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        final Contact entity = new Contact(contact.getProfile(), contact.getFirstName(), contact.getLastName(), contact.getNickName(), contact.getEmail(), contact.getPhoneNumber(), contact.getAddress(), contact.getWebsite(), contact.getRelationship(), contact.getNotes());
+        // final Contact entity = new Contact(contact.getProfile(), contact.getFirstName(), contact.getLastName(), contact.getNickName(), contact.getEmail(), contact.getPhoneNumber(), contact.getAddress(), contact.getWebsite(), contact.getRelationship(), contact.getNotes());
         final User user = this.loginService.getUser(email);
-        entity.setUser(user);
+        contact.setUser(user);
+        this.service.addOrUpdateContact(contact);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
